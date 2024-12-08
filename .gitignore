@@ -36,3 +36,6 @@
 
 # Ignore IDE configs
 .vscode/*
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

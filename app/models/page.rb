@@ -1,9 +1,8 @@
 class Page < ApplicationRecord
-  has_many :results
+  belongs_to :last_result, class_name: "Result"
+  has_many :results, dependent: :destroy
 
-  validates_presence_of(:url)
-  validates_presence_of(:check_type)
-  validates_presence_of(:selector)
+  validates_presence_of(:name, :url, :check_type, :selector)
   validates :match_text, presence: { if: -> { check_type == "text" } }
 
   def run_check!
@@ -16,6 +15,7 @@ class Page < ApplicationRecord
     when "not_exists"
       scraper.present?(selector: selector)
     end
-    results.create(success: result)
+    result = results.create(success: result)
+    update(last_result: result)
   end
 end
