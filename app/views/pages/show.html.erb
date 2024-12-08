@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @page %>
+
+<div>
+  <%= link_to "Edit this page", edit_page_path(@page) %> |
+  <%= link_to "Back to pages", pages_path %>
+
+  <%= button_to "Destroy this page", @page, method: :delete %>
+  <%= button_to "Run", page_check_path(@page) %>
+</div>
+
+<h4>Results</h4>
+<%= render @page.results.order(created_at: :desc) %>
